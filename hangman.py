@@ -11,7 +11,6 @@ word = word_list[randint(0, len(word_list) - 1)]
 overlap = []
 flag = False
 count = 0
-print(word)
 
 def overlap_outp(ovrl):
     for i in range(len(ovrl)):
