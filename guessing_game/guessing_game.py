@@ -6,16 +6,31 @@ Created on Tue Jul 30 22:58:45 2024
 @author: iaroslav
 """
 from random import randint
+from config_reader import get_settings
+
 flag = False
 wrong_place = []
 overlap = []
 str_to_guess = []
 to_be_guessed = []
+config = get_settings()
 
-num_of_wordles = input('How many numbers do you want to guess simultaneously (1 - 10)?\n')
-while not(num_of_wordles.isdigit() and int(num_of_wordles) >= 1 and int(num_of_wordles) <= 10):
-    num_of_wordles = input('Invalid input\nTry again\nHow many numbers do you want to guess simultaneously (1 - 10)?\n')
-num_of_wordles = int(num_of_wordles)
+def binary_choice(message):
+    choice = input(f'{message}\ny/n\n')
+    while choice not in {'y', 'n'}:
+        choice = input(f'Invalid input\nTry again\n{message}\ny/n\n')
+    if choice == 'y':
+        return(True)
+    else:
+        return(False)
+
+if config.simultaneous == 'yes':
+    num_of_wordles = input('How many numbers do you want to guess simultaneously (1 - 10)?\n')
+    while not(num_of_wordles.isdigit() and int(num_of_wordles) >= 1 and int(num_of_wordles) <= 10):
+        num_of_wordles = input('Invalid input\nTry again\nHow many numbers do you want to guess simultaneously (1 - 10)?\n')
+    num_of_wordles = int(num_of_wordles)
+else:
+    num_of_wordles = config.simultaneous_num
 
 for rnd_num in range(int(num_of_wordles)):
     str_to_guess.append(randint(0, 9999))
@@ -24,17 +39,20 @@ for rnd_num in range(int(num_of_wordles)):
     wrong_place.append('')
     to_be_guessed.append(True)
     
-choice = input('Do you want to play with wordle extension\ny/n\n')
-while choice not in {'y', 'n'}:
-    choice = input('Invalid input\nTry again\nDo you want to play with wordle extension\ny/n\n')
-if choice == 'y':
-    wordle = True
+if config.ask_wordle == 'yes':
+    wordle = binary_choice('Do you want to play with wordle extension\ny/n\n')
 else:
-    wordle = False
-
-num_of_guesses = input('How many tries do you want to give yourself (5 - 20)?\n')
-while not(num_of_guesses.isdigit() and int(num_of_guesses) >= 5 and int(num_of_guesses) <= 20):
-    num_of_guesses = input('Invalid input\nTry again\nHow many tries do you want to give yourself (5 - 20)?\n')
+    if config.wordle == 'yes':
+        wordle = True
+    else:
+        wordle = False
+        
+if config.ask_tries == 'yes':
+    num_of_guesses = input('How many tries do you want to give yourself (5 - 20)?\n')
+    while not(num_of_guesses.isdigit() and int(num_of_guesses) >= 5 and int(num_of_guesses) <= 20):
+        num_of_guesses = input('Invalid input\nTry again\nHow many tries do you want to give yourself (5 - 20)?\n')
+else:
+    num_of_guesses = config.tries
 
 for i in range(int(num_of_guesses)):
     guess = input(f'You have {int(num_of_guesses) - i} guesses left\nguess 4 digits:\n')

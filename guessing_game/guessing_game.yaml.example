@@ -1,0 +1,12 @@
+# ask if user wants to play with wordle extension
+ask_wordle: "no"
+# if ask_wordle == 'no', default mode
+wordle: "yes"
+# ask if user wants to input the num of words to guess simultaneously
+simultaneous: "no"
+# if simultaneous == 'no', default number of words being guessed
+simultaneous_num: 1
+# ask for user to input num of tries
+ask_tries: "yes"
+# if ask_tries == 'no', default number of tries
+tries: 5
