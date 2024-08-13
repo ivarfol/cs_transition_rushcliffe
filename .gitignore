@@ -1,1 +1,3 @@
 guessing_game/guessing_game.yaml
+*.bin
+__pycache__/
