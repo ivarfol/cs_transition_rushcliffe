@@ -11,7 +11,7 @@ import os
 def path_to_file_enc():
     u_path = input('Input the path to the first file:\n')
     while not os.path.exists(u_path):
-        u_path = input('Invalid path\nTry again\nInput the path to the second file:\n')
+        u_path = input('Invalid path\nTry again\nInput the path to the first file:\n')
     return(u_path)
 
 def path_to_file_overwrite():
@@ -121,19 +121,17 @@ def caesar_cipher_decr():
     print(encripted)
     
 def code_cipher_encr():
-    key = key_validator()
     if binary_choice('Do you want to encript a file(1) or a text(0)?'):
-        code = bin_list() ^ key
+        code = bin_list() ^ key_validator()
         bin_outp(code)
     else:
         text_m = bin_converter(input('Input the text:\n'))
-        code = text_m ^ key
+        code = text_m ^ key_validator()
         print(code)
 
 def code_cipher_decr():
-    key = key_validator()
     if binary_choice('Do you want to decript a file(1) or a text(0)?'):
-        code = bin_list() ^ key
+        code = bin_list() ^ key_validator()
         bin_outp(code)
     else:
         u_decript = input('Input list to decript:\n')[1:-1].split()
@@ -143,7 +141,7 @@ def code_cipher_decr():
             u_decript.remove('')
         for i in range(len(u_decript)):
             u_decript[i] = int(u_decript[i])
-        decriptor_outp(np.array(u_decript) ^ key)
+        decriptor_outp(np.array(u_decript) ^ key_validator())
 
 #%%
 
