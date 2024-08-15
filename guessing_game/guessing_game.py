@@ -24,6 +24,19 @@ def binary_choice(message):
     else:
         return(False)
 
+def outp(overl_temp, g_temp, wrong_temp, x):
+    for i in range(x):
+        for j in range(len(g_temp)):
+            if overl_temp[i][j] == g_temp[j]:
+                print(f'\033[32m{g_temp[j]}', end='')
+            elif wrong_temp[i][j] == g_temp[j]:
+                print(f'\033[33m{g_temp[j]}', end='')
+            else:
+                print(f'\033[37m{g_temp[j]}', end='')
+        print('', end=' ')
+    print('\033[37m', end='\n')
+
+print('\033[37m', end='')
 if config.simultaneous == 'yes':
     num_of_wordles = input('How many numbers do you want to guess simultaneously (1 - 10)?\n')
     while not(num_of_wordles.isdigit() and int(num_of_wordles) >= 1 and int(num_of_wordles) <= 10):
@@ -40,7 +53,7 @@ for rnd_num in range(int(num_of_wordles)):
     to_be_guessed.append(True)
     
 if config.ask_wordle == 'yes':
-    wordle = binary_choice('Do you want to play with wordle extension\ny/n\n')
+    wordle = binary_choice('Do you want to play with wordle extension?')
 else:
     if config.wordle == 'yes':
         wordle = True
@@ -78,23 +91,17 @@ for i in range(int(num_of_guesses)):
                 wrong_place[y] += guess[x]
             else:
                 wrong_place[y] += '*'
-    print(*overlap)  
+        
+    outp(overlap, guess, wrong_place, num_of_wordles)
     flag = True
     wrong_place_flag = False
     for k in range(num_of_wordles):
         if to_be_guessed[k]:
             flag = False
             overlap[k] = ''
-            if wordle:
-                if wrong_place[k] != '****':
-                    wrong_place_flag = True
-    if wordle and wrong_place_flag:
-        print('Digits in the number, but in the wrong place:')
-        print(*wrong_place)
-    else:
-        print('No digits in incorrect places guessed')
+    
     for l in range(num_of_wordles):
-        if to_be_guessed:
+        if to_be_guessed[l]:
             wrong_place[l] = ''
     if flag:
         break
@@ -102,8 +109,9 @@ if num_of_wordles == 1:
     print('Correct answer:')
 else:
     print('Correct answers:')
+print('\033[32m', end='')
 print(*str_to_guess)
 if flag:
-    print('You won')
+    print('\033[37mYou won')
 else:
-    print('You are out of guesses')
+    print('\033[31mYou are out of guesses')
