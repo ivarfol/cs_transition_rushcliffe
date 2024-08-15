@@ -71,10 +71,6 @@ for i in range(int(num_of_guesses)):
     guess = input(f'You have {int(num_of_guesses) - i} guesses left\nguess 4 digits:\n')
     while not (guess.isdigit() and len(guess) == 4):
         guess = input('Unacceptable guess\nguess 4 digits:\n')
-    if num_of_wordles > 1:
-        for _ in range(num_of_wordles):
-            print(f'{guess} ', end='')
-        print()
     for y in range(num_of_wordles):
         for j in range(4):
             if guess == str_to_guess[y] or not to_be_guessed[y]:
