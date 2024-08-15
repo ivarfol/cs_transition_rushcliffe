@@ -36,7 +36,7 @@ def outp(overl_temp, g_temp, wrong_temp, x):
         print('', end=' ')
     print('\033[37m', end='\n')
 
-print('\033[37m', end='')
+print('\033[1m\033[37m', end='')
 if config.simultaneous == 'yes':
     num_of_wordles = input('How many numbers do you want to guess simultaneously (1 - 10)?\n')
     while not(num_of_wordles.isdigit() and int(num_of_wordles) >= 1 and int(num_of_wordles) <= 10):
@@ -87,7 +87,7 @@ for i in range(int(num_of_guesses)):
                 wrong_place[y] += guess[x]
             else:
                 wrong_place[y] += '*'
-        
+    print('\033[1m', end='')
     outp(overlap, guess, wrong_place, num_of_wordles)
     flag = True
     wrong_place_flag = False
@@ -111,3 +111,4 @@ if flag:
     print('\033[37mYou won')
 else:
     print('\033[31mYou are out of guesses')
+print('\033[0m', end='')
