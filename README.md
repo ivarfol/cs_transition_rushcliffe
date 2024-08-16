@@ -25,6 +25,19 @@ by Varfolomeev Iaroslav
 		- allows to change the number of guesses by default
 - Programming Extension Tasks:
 	1. Prime Number Checker [prime_number_checker.py](https://github.com/ivarfol/cs_transition_rushcliffe/blob/main/prime_number_checker.py)
+		- program checks if an integer is a prime number
+		- program can check numbers for being prime ina range
+		- program is optimised by using sqrt of the number
 	2. Palindrome Detector [palindrome_detector.py](https://github.com/ivarfol/cs_transition_rushcliffe/blob/main/palindrome_detector.py)
+		- program checks if a phrase is a palindrome
+		- program ignores the punctuation
+		- program handles case insensitive palindromes
 	3. Hangman Game [hangman.py](https://github.com/ivarfol/cs_transition_rushcliffe/blob/main/hangman.py)
+		- program chooses a random word from a list
+		- program allows to guess letters
+		- program reveals correctly guessed letters and tracks the incorrect guesses
 	4. File Encription/Decription [encription.py](https://github.com/ivarfol/cs_transition_rushcliffe/blob/main/encription.py)
+		- program encripts or decripts files or texts using a key
+		- program supporst encription of binary files
+		- program supports Caeser cipher
+		- to encript/decript a file enter the path to the file you want to encript/decript and the path to the file you want to write the result in
