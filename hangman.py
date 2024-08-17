@@ -13,10 +13,21 @@ flag = False
 count = 0
 not_in_word = ''
 
-def overlap_outp(ovrl, not_in):
+def overlap_outp(ovrl, not_in, count):
+    hangman = ['\n\n\n\n\n  ______',
+               '\n|\n|\n|\n|\n|\______',
+               '_____\n|/\n|\n|\n| \n|\\______',
+               '_____\n|/   |\n|\n|\n|\n|\\______',
+               '_____\n|/   |\n|    O\n|\n|\n|\\______',
+               '_____\n|/   |\n|    O\n|    |\n|\n|\\______',
+               '_____\n|/   |\n|    O\n|   /|\n|\n|\\______',
+               '_____\n|/   |\n|    O\n|   /|\\\n|\n|\\______',
+               '_____   \n|/   |\n|    O\n|   /|\\\n|   /\n|\\______',
+               '_____   \n|/   |\n|    O\n|   /|\\\n|   /\\\n|\\______']
     for i in range(len(ovrl)):
         print(ovrl[i], end='')
     if len(not_in):
+        print(f'\n{hangman[count - 1]}')
         print(f'\nLetters in the word:\n{not_in}')
     else:
         print()
@@ -32,11 +43,11 @@ def overlap_comparison(overl, wor):
 for _ in range(len(word)):
     overlap.append('_')
 
-while count < 11:
-    overlap_outp(overlap, not_in_word)
+while count < 10:
+    overlap_outp(overlap, not_in_word, count)
     print(f'You have {11 - count} tryes left')
     guess = input('Your guess:\n')
-    while len(guess) != len(word) and len(guess) != 1:
+    while len(guess) != len(word) and (len(guess) != 1 or guess in not_in_word):
         guess = input('Try again\nYour guess:\n')
     if len(guess) == 1:
         if guess in word:
@@ -56,6 +67,7 @@ while count < 11:
         else:
             count += 1
 
+overlap_outp(overlap, not_in_word, count)
 print(f'Correct answer:\n{word}')
 if flag:
     print('You won')
