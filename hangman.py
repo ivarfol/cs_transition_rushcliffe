@@ -26,11 +26,11 @@ def overlap_outp(ovrl, not_in, count):
                '_____   \n|/   |\n|    O\n|   /|\\\n|   /\\\n|\\______']
     for i in range(len(ovrl)):
         print(ovrl[i], end='')
+    print()
     if len(not_in):
-        print(f'\n{hangman[count - 1]}')
-        print(f'\nLetters in the word:\n{not_in}')
-    else:
-        print()
+        print(f'\nLetters that are not in the word:\n{not_in}')
+    if count != 0:
+        print(hangman[count - 1])
 
 def overlap_comparison(overl, wor):
     same = True
@@ -45,7 +45,7 @@ for _ in range(len(word)):
 
 while count < 10:
     overlap_outp(overlap, not_in_word, count)
-    print(f'You have {11 - count} tryes left')
+    print(f'You have {10 - count} tryes left')
     guess = input('Your guess:\n')
     while len(guess) != len(word) and (len(guess) != 1 or guess in not_in_word):
         guess = input('Try again\nYour guess:\n')
