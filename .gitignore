@@ -1,3 +1,4 @@
 guessing_game/guessing_game.yaml
 *.bin
 __pycache__/
+grade_tracker/config_grade_tracker.yaml
