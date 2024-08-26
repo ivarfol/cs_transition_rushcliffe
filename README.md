@@ -36,7 +36,18 @@ by Varfolomeev Iaroslav
 		- program chooses a random word from a list
 		- program allows to guess letters
 		- program reveals correctly guessed letters and tracks the incorrect guesses
-	4. File Encryption/Decryption [encription.py](https://github.com/ivarfol/cs_transition_rushcliffe/blob/main/encription.py)
+	4. Student Grade Tracker []()
+		- allows to input commands to
+			- add students
+			- add scores
+			- revert the last score
+			- remove a student
+			- seve or exit without saving
+		- config []()
+			- allows to input the path to the file you want to save the results to
+			- allows to change whether the program asks if you want to use a use a new dictionary
+			- WARNING if you change the second option to yes and have a path to the file in the config, if you choose to save the file it will be overriten
+	5. File Encryption/Decryption [encription.py](https://github.com/ivarfol/cs_transition_rushcliffe/blob/main/encription.py)
 		- program encrypts or decrypts files or texts using a key
 		- program supporst encryption of binary files
 		- program supports Caeser cipher

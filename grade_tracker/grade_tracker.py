@@ -12,6 +12,7 @@ from grade_tracker_config_reader import get_settings
 def main():
     config = get_settings()
     def_path = config.path
+    save_flag = True
     if config.new_ask == 'yes':
         if binary_choice('Do you want to load a file?'):
             student_dict = load(def_path)
@@ -25,18 +26,23 @@ def main():
     while True:
         command = command_valid('Input a command\nadd student/add score/revert score/remove student/scores/save/exit\n')
         if command[:4] == 'exit':
-            if binary_choice('Do you want to save the changes?'):
+            if not save_flag and binary_choice('Do you want to save the changes?'):
                 save(def_path, student_dict)
             break
         elif command[:11] == 'add student':
+            save_flag = False
             student_dict.update({command[12:]: []})
         elif command[:9] == 'add score':
+            save_flag = False
             student_dict = add_score(student_dict, command[10:])
         elif command[:12] == 'revert score':
+            save_flag = False
             student_dict = revert_score(student_dict, command[13:])
         elif command[:14] == 'remove student':
+            save_flag = False
             student_dict = remove_student(student_dict, command[15:])
         elif command[:4] == 'save':
+            save_flag = True
             save(def_path, student_dict)
         elif command[:6] == 'scores':
             if binary_choice('Do you want to sort the dictionary?'):
