@@ -12,11 +12,16 @@ from grade_tracker_config_reader import get_settings
 def main():
     config = get_settings()
     def_path = config.path
-    new = config.new
-    if new == 'yes':
-        student_dict = {}
+    if config.new_ask == 'yes':
+        if binary_choice('Do you want to load a file?'):
+            student_dict = load(def_path)
+        else:
+            student_dict = {}
     else:
-        student_dict = load(def_path)
+        if def_path == '':
+            student_dict = {}
+        else:
+            student_dict = load(def_path)
     while True:
         command = command_valid('Input a command\nadd student/add score/revert score/remove student/scores/save/exit\n')
         if command[:4] == 'exit':
@@ -71,16 +76,16 @@ def command_valid(message):
     return(command)
 
 def add_score(st_dict, inp):
-    inp = inp.split()
-    if len(inp) != 2:
+    inp_temp = inp.split()
+    if len(inp_temp) < 2:
         return(st_dict)
-    if not inp[0] in st_dict.keys():
+    if inp[: - len(inp_temp[-1]) - 1] not in st_dict.keys():
         if binary_choice('Are you shure you want to add a student?'):
-            st_dict.update({inp[0]: []})
+            st_dict.update({inp[: - len(inp_temp[-1]) - 1]: []})
         else:
             return(st_dict)
-    score = inp_num('Input score:\n', inp[1])
-    st_dict[inp[0]] = st_dict[inp[0]] + [score]
+    score = inp_num('Input score:\n', inp_temp[-1])
+    st_dict[inp[: - len(inp_temp[-1]) - 1]] = st_dict[inp[: - len(inp_temp[-1]) - 1]] + [score]
     return(st_dict)
 
 def revert_score(st_dict, inp):

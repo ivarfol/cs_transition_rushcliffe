@@ -1,2 +1,5 @@
+# path to file you want to save the scores to, if you dont want to do it
+# leave the string empty
 path: ""
-new: "yes"
+# ask user if he wants to load the file every time
+new_ask: "no"
