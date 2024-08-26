@@ -1,5 +1,8 @@
-# path to file you want to save the scores to, if you dont want to do it
-# leave the string empty
-path: ""
+# path to file you want to load the scores from by default
+# if you dont want to do it, leave the string empty
+path_load: ""
+# path to file you want to save the scores to default
+# if you dont want to do it, leave the string empty
+path_save: ""
 # ask user if he wants to load the file every time
-new_ask: "no"
+new_ask: "yes"

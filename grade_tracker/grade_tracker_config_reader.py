@@ -30,7 +30,8 @@ def get_config_file():
 
 class Settings(BaseSettings, case_sensitive=True):
     model_config = SettingsConfigDict(yaml_file=get_config_file())
-    path: str = Field(default='')
+    path_load: str = Field(default='')
+    path_save: str = Field(default='')
     new_ask: YesNoEnum = Field(default=YesNoEnum.NO)
 
     @classmethod

@@ -11,23 +11,24 @@ from grade_tracker_config_reader import get_settings
 
 def main():
     config = get_settings()
-    def_path = config.path
+    def_path = config.path_load
+    save_path = config.path_save
     save_flag = True
+    f_load = True
     if config.new_ask == 'yes':
-        if binary_choice('Do you want to load a file?'):
+        f_load = binary_choice('Do you want to load a file?')
+        if f_load:
             student_dict = load(def_path)
         else:
             student_dict = {}
     else:
         if def_path == '':
-            student_dict = {}
-        else:
             student_dict = load(def_path)
     while True:
-        command = command_valid('Input a command\nadd student/add score/revert score/remove student/scores/save/exit\n')
+        command = command_valid('Input a command\nadd student/add score/revert score/remove student/rename student\n/scores/save/exit\n')
         if command[:4] == 'exit':
             if not save_flag and binary_choice('Do you want to save the changes?'):
-                save(def_path, student_dict)
+                save(save_path, student_dict, f_load)
             break
         elif command[:11] == 'add student':
             save_flag = False
@@ -41,9 +42,13 @@ def main():
         elif command[:14] == 'remove student':
             save_flag = False
             student_dict = remove_student(student_dict, command[15:])
+        elif command[:14] == 'rename student':
+            save_flag = False
+            student_dict[input('Input the new name:\n')] = student_dict[command[15:]]
+            del student_dict[command[15:]]
         elif command[:4] == 'save':
             save_flag = True
-            save(def_path, student_dict)
+            save(save_path, student_dict, f_load)
         elif command[:6] == 'scores':
             if binary_choice('Do you want to sort the dictionary?'):
                 scores_print(scores_sort(get_avrg(student_dict)))
@@ -56,28 +61,31 @@ def load(def_path):
         with open(def_path,'rb') as file:
             st_dict = pickle.load(file)
         return(st_dict)
-    dict_path = input('Path\n')
+    dict_path = input('Input path to the file to load\n')
     while not os.path.exists(dict_path):
-        dict_path = input('Path\n')
+        dict_path = input('Path does not exist\nInput path to the file to load\n')
     with open(dict_path,'rb') as file:
         st_dict = pickle.load(file)
     return(st_dict)
     
-def save(def_path, st_dict):
-    if os.path.exists(def_path):
+def save(def_path, st_dict, f_load):
+    if os.path.exists(def_path) and f_load:
         with open(def_path,'wb') as file:
             pickle.dump(st_dict, file)
         return()
-    dict_path = input('Path\n')
+    dict_path = input('Input path to the file to save the results to\n')
     while not os.path.exists(dict_path):
-        dict_path = input('Path\n')
+        print('Path does not exist')
+        if binary_choice('Do you want to create a new file with this name:'):
+            break
+        dict_path = input('Input path to the file to save the results to\n')
     with open(dict_path,'wb') as file:
         pickle.dump(st_dict, file)
     return()
 
 def command_valid(message):
     command = input(message)
-    while (command[:11] != 'add student' or len(command) < 12) and (command[:9] != 'add score' or command.count(' ') < 3) and (command[:12] != 'revert score' or len(command) < 13) and (command[:14] != 'remove student' or len(command) < 15) and command[:6] != 'scores' and command[:4] != 'save' and command[:4] != 'exit':
+    while (command[:11] != 'add student' or len(command) < 12) and (command[:9] != 'add score' or command.count(' ') < 3) and (command[:12] != 'revert score' or len(command) < 13) and (command[:14] != 'remove student' or len(command) < 15) and (command[:14] != 'rename student' or len(command) < 15) and command[:6] != 'scores' and command[:4] != 'save' and command[:4] != 'exit':
         command = input(message)
     return(command)
 
